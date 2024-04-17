@@ -7,8 +7,8 @@ from tensorflow import keras
 import matplotlib.dates as mdates
 
 
-#Downloading the S&P 500 from date 01-01-2010 to 01-01-2024
-spy = yf.download('SPY', start='2010-01-01', end='2024-01-01')
+#Downloading the S&P 500 from date 01-01-2020 to 01-01-2024
+spy = yf.download('SPY', start='2014-01-01', end='2024-01-01')
 
 #Train/Validation split
 training_data = spy['Adj Close']['2010-01-01':'2021-12-31']
@@ -47,11 +47,11 @@ X_validation = np.reshape(X_validation, (X_validation.shape[0], X_validation.sha
 #The model is simple, it consists of 3 LSTM layers, seperated by dropouts + one fully connected layer for output
 model = keras.Sequential([
     # LSTM layers
-    keras.layers.LSTM(units=150, return_sequences=True),
+    keras.layers.LSTM(units=200, return_sequences=True),
     keras.layers.Dropout(0.1),
-    keras.layers.LSTM(units=150, return_sequences=True),
+    keras.layers.LSTM(units=200, return_sequences=True),
     keras.layers.Dropout(0.1),
-    keras.layers.LSTM(units=150, return_sequences=False),
+    keras.layers.LSTM(units=200, return_sequences=False),
     keras.layers.Dropout(0.1),
 
     # Dense layer
@@ -72,7 +72,7 @@ plt.title('Model Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.legend()
-plt.savefig('figs/Loss.png')
+plt.savefig('/home/msensis/Documents/Projects/ML/PredictingStockMarcketValues/PredictingStockMarketValues/figs/Loss.png')
 plt.show()
 plt.clf()
 
@@ -107,5 +107,5 @@ plt.title('SPY Stock Price Prediction')
 plt.xlabel('Time')
 plt.ylabel('SPY Stock Price')
 plt.legend()
-plt.savefig('figs/StockPricePrediction.png')
+plt.savefig('/home/msensis/Documents/Projects/ML/PredictingStockMarcketValues/PredictingStockMarketValues/figs/StockPricePrediction.png')
 plt.show()
